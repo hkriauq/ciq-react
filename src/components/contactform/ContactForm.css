@@ -1,0 +1,10 @@
+.contract-form{
+    color: var(--ciq-color);
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+
+.contact-message-error{
+    color: gray;
+    font-size: 20px;
+}

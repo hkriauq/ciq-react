@@ -1,0 +1,6 @@
+.select{
+    color: var(--ciq-color);
+    font-size: 50px !important; /*サイズが変わらない→Material UIのデフォルトサイズが優先されている*/
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
