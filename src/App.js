@@ -2,6 +2,7 @@ import './App.css';
 import Farms from './components/farms/Farms';
 import ContactForm from './components/contactform/ContactForm';
 import Questions from './components/questions/Questions';
+import Recording from './components/Recording/Recording';
 
 
 function App() {
@@ -26,27 +27,28 @@ function App() {
         <h6>⑦ 決済完了後5日以内に、Feedbackシート・録音データをメールにて送付します</h6>
       </header>
 
-        {/* ファームセレクト */}
-        < Farms />
 
-        {/* 問題セレクト */}
-        < Questions />
+      {/* ファームセレクト */}
+      < Farms />
 
-        {/* 設問を表示 */}
+      {/* 問題セレクト */}
+      < Questions />
 
-        {/* 検討開始 */}
+      {/* 設問を表示 */}
 
-        {/* 録音開始 */}
+      {/* 検討開始 */}
 
-        {/* アンケート */}
+      {/* 録音開始 */}
+      <Recording/>
+      {/* アンケート */}
 
-        {/* 入力フォーム */}
-        < ContactForm />
+      {/* 入力フォーム */}
+      < ContactForm />
 
-        {/* 決済 */}
+      {/* 決済 */}
 
 
-        {/* TOPに戻る */}
+      {/* TOPに戻る */}
 
     </div>
   );
