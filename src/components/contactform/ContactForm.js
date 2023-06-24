@@ -1,7 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import './ContactForm.css';
 
+const ContactForm = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState(null);
 
+  const onSubmit = (data) => {
+    setFormData(data);
+    setSubmitted(true);
+    console.log(data); // フォームのデータを表示する例としてコンソールに出力します
+  };
+
+  return (
+    <div className="form-container">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="name">名前</label>
+        <input type="text" {...register("name", { required: true })} />
+        {errors.name && <p className="error-message">名前を入力してください</p>}
+
+        <label htmlFor="email">メールアドレス</label>
+        <input
+          type="email"
+          {...register("email", {
+            required: true,
+            pattern: /^\S+@\S+$/i,
+          })}
+        />
+        {errors.email && <p className="error-message">正しいメールアドレスを入力してください</p>}
+
+        <label htmlFor="message">メッセージ</label>
+        <textarea {...register("message", { required: true })} />
+        {errors.message && <p className="error-message">メッセージを入力してください</p>}
+
+        <button type="submit">送信</button>
+      </form>
+
+      {submitted && (
+        <div className="hover-message">
+          <p>以下の内容で送信しますか？</p>
+          <p>名前: {formData.name}</p>
+          <p>メールアドレス: {formData.email}</p>
+          <p>メッセージ: {formData.message}</p>
+          <button>はい</button>
+          <button>いいえ</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ContactForm
+
+
+
+
+
+
+
+/*　以下、react-hook-formじゃない例
 class ContactForm extends React.Component {
   constructor(props) {
     super(props);
@@ -93,7 +151,7 @@ class ContactForm extends React.Component {
       </div>
     );
   }
-}
+} 
 
 
-export default ContactForm
+export default ContactForm  */
