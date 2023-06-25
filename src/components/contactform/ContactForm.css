@@ -1,10 +1,40 @@
-.contract-form{
-    color: var(--ciq-color);
-    margin-left: 30px;
-    margin-bottom: 30px;
-}
-
-.contact-message-error{
-    color: gray;
-    font-size: 20px;
-}
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    }
+    
+    .form-container label {
+    display: block;
+    margin-bottom: 5px;
+    }
+    
+    .form-container input,
+    .form-container textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #516C8D;
+    border-radius: 4px;
+    box-sizing: border-box;
+    }
+    
+    .form-container button {
+    background-color: #28385E;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+    
+    .form-container button:hover {
+    background-color: #516C8D;
+    }
+    
+    .form-container p {
+    color: #28385E;
+    margin-top: 5px;
+    }
