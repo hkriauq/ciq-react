@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import Recording_Recorder from "./Recording_recorder";
 
 const Recording = () => {

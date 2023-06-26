@@ -35,7 +35,7 @@ const Recording_recorder = () => {
 
     return (
         <div>
-            <h2 className="title2"> 回答の録音を開始してください。</h2>
+            <h2 className="title2"> </h2>
             
             <div className="button-container">
                 <button 

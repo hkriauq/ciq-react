@@ -1,52 +1,33 @@
-import React from 'react'
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import'./Questions.css';
+import React, { useState } from 'react';
+import './Questions.css';
+import SelectFarms from './SelectFarms';
+import SelectQuestions from './SelectQuestions';
+import Button from '@mui/material/Button';
+import Consideration from './components/consideration/Consideration';
 
 function Questions() {
-  const [selectedOption, setSelectedOption] = React.useState('');
+  const [selectedOptionFarms, setSelectedOptionFarms] = useState(null);
+  const [selectedOptionQuestions, setSelectedOptionQuestions] = useState(null);
+  const [showConsideration, setShowConsideration] = useState(false);
 
-  const handleChange = (event) => {
-    setSelectedOption(event.target.value);
+  const handleButtonClick = () => {
+    if (selectedOptionFarms && selectedOptionQuestions) {
+      setShowConsideration(true);
+    } else {
+      console.log("選択してください");
+    }
   };
 
   return (
-    <FormControl>
-      <InputLabel id="demo-select-label">問題を選択する</InputLabel>
-      <Select
-        labelId="demo-select-label"
-        id="demo-select"
-        value={selectedOption}
-        label="Options"
-        onChange={handleChange}
-      >
-        <MenuItem value="option1">01:腕時計問題</MenuItem>
-        <MenuItem value="option2">02:電車業界問題</MenuItem>
-        <MenuItem value="option3">03:携帯業界問題</MenuItem>
-        <MenuItem value="option4">04:缶コーヒー問題</MenuItem>
-      </Select>
-    </FormControl>
+    <div>
+      <SelectFarms onChange={setSelectedOptionFarms} />
+      <SelectQuestions onChange={setSelectedOptionQuestions} />
+      <Button onClick={handleButtonClick} disabled={!selectedOptionFarms || !selectedOptionQuestions}>
+        検討を開始する
+      </Button>
+      {showConsideration && <Consideration />}
+    </div>
   );
 };
 
-export default Questions
-
-
-
-
-/*
-const questions = ["--Please Select--","01:腕時計問題", "02:電車業界問題","03:携帯業界問題", "04:缶コーヒー問題"];
-
-  const Questions = () => {
-    return (
-      <div className='select'>
-        <select>
-          {questions.map((question) => {
-            return <option key={question}>{question}</option>;
-          })}
-        </select>
-      </div>
-    );
-  };
-
-
-export default Questions */
+export default Questions;
