@@ -1,0 +1,9 @@
+.MuiFormControl-root {
+    width: 70%;
+}
+  
+.MuiSelect-select.MuiSelect-select {
+padding: 12px 30px 12px 12px;
+font-size: 16px;
+line-height: 1.5;
+}
