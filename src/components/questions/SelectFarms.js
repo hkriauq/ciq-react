@@ -11,8 +11,7 @@ function SelectFarms() {
 
 
   return (
-    <div style={{textAlign: 'center'}}>
-      <p>練習したいファーム種別を選んでください</p>
+    <div className='pulldown'>
       <FormControl>
       <InputLabel id="select-label">ファーム種別を選択</InputLabel>
       <Select

@@ -1,9 +1,47 @@
-.MuiFormControl-root {
-    width: 70%;
+.pulldown {
+    display: inline-flex;
+    align-items: center;
+    width:80%;
 }
-  
-.MuiSelect-select.MuiSelect-select {
-padding: 12px 30px 12px 12px;
-font-size: 16px;
-line-height: 1.5;
+
+.MuiFormControl-root {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.MuiInputLabel-root {
+    font-size: 11px;
+    transform: translate(0, 1.5px) scale(0.75);
+    transform-origin: top left;
+    pointer-events: none;
+}
+
+.MuiInputLabel-shrink {
+    transform: translate(0, -6px) scale(0.8) !important;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.MuiSelect-root {
+    padding-top: 18px;
+}
+
+.MuiSelect-select {
+    padding-top: 10px;
+    padding-bottom: 9px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.2s ease-out;
+}
+
+.MuiSelect-select:focus {
+    border-color: var(--ciq-sub1color)!important;
+    outline: 0;
+}
+
+.Mui-focused .MuiInputLabel-root {
+    color: var(--ciq-sub1color)!important;
 }

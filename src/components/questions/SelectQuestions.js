@@ -10,10 +10,9 @@ function SelectQuestions() {
   };
 
   return (
-    <div style={{textAlign: 'center'}}>
-      <p>問題を選択してください</p>
+    <div className='pulldown'>
       <FormControl>
-        <InputLabel id="select-label">問題を選択する</InputLabel>
+        <InputLabel id="select-label">問題を選択</InputLabel>
         <Select
           labelId="select-label"
           id="select"

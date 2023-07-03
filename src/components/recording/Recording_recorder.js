@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import './Recording.css';
+import Button from '@mui/material/Button';
 
 const Recording_recorder = () => {
     const [recording, setRecording] = useState(false);
@@ -38,19 +39,19 @@ const Recording_recorder = () => {
             <h2 className="title2"> </h2>
             
             <div className="button-container">
-                <button 
+                <Button variant="contained"
                     className={`button ${recording ? 'active' : ''}`}
                     onClick={startRecording}
                 >
                     Start Recording
-                </button>
-                <button 
+                </Button>
+                <Button variant="contained"
                     className={`button ${recording ? '' : 'active'}`}
                     onClick={stopRecording}
                     disabled={!recording}
                 >
                     Stop Recording
-                </button>
+                </Button>
             </div>
 
             {content && <audio src={content} controls />}

@@ -1,50 +1,54 @@
-import React from 'react';
-import { useTimer } from 'react-timer-hook';
-import Button from '@mui/material/Button';
+import React, { useState, useEffect } from 'react';
 
-function MyTimer({ expiryTimestamp }) {
-  const {
-    seconds,
-    minutes,
-    hours,
-    days,
-    isRunning,
-    start,
-    pause,
-    resume,
-    restart,
-  } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
+const CustomTimer = ({ initialTime, autoStartDelay, onExpire }) => {
+  const [time, setTime] = useState(initialTime);
+  const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    if (isRunning) {
+      timer = setInterval(() => {
+        setTime((prevTime) => {
+          if (prevTime <= 0) {
+            clearInterval(timer);
+            setIsRunning(false);
+            onExpire();
+            return 0;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+    }
+
+    return () => clearInterval(timer);
+  }, [isRunning, onExpire]);
+
+  useEffect(() => {
+    let delayTimer;
+    if (autoStartDelay > 0) {
+      delayTimer = setTimeout(() => {
+        setIsRunning(true);
+      }, autoStartDelay * 1000);
+    } else {
+      setIsRunning(true);
+    }
+
+    return () => clearTimeout(delayTimer);
+  }, [autoStartDelay]);
+
+  const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
 
   return (
-    <>
-      <div style={{ textAlign: 'center' }}>
-        <div style={{ fontSize: '100px' }}>
-          <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
-        </div>
-        <p>{isRunning ? 'Running' : 'Not running'}</p>
-        <Button variant="contained" onClick={start}>Start</Button>
-        {/*<Button variant="contained" onClick={pause}>Pause</Button>*/}
-        {/*<Button variant="contained" onClick={resume}>Resume</Button>*/}
-        {/*<Button variant="contained"
-          onClick={() => {
-            // Restarts to 5 minutes timer
-            const time = new Date();
-            time.setSeconds(time.getSeconds() + 300);
-            restart(time);
-          }}
-        >
-          Restart
-        </Button>*/}
-      </div>
-    </>
+    <div className="timer" style={{ fontSize: '110px', margin: '0 0'  }}>
+      <p>{formatTime(time)}</p>
+    </div>
   );
 };
 
-function CustomTimer() {
-  const time = new Date();
-  time.setSeconds(time.getSeconds() + 300); // 5 minutes timer
-  return <MyTimer expiryTimestamp={time} />;
-};
+export default CustomTimer;
 
 
-export default CustomTimer
