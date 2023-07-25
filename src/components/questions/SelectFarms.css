@@ -1,7 +1,6 @@
 .pulldown {
     display: inline-flex;
     align-items: center;
-    width:80%;
 }
 
 .MuiFormControl-root {
@@ -32,7 +31,7 @@
     padding-left: 8px;
     padding-right: 8px;
     border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
+    border-radius: 10px;
     background-color: #fff;
     transition: border-color 0.2s ease-out;
 }
@@ -43,5 +42,5 @@
 }
 
 .Mui-focused .MuiInputLabel-root {
-    color: var(--ciq-sub1color)!important;
+    color:var(--ciq-sub1color)!important;
 }

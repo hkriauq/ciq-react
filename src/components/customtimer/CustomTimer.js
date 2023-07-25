@@ -1,41 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-const CustomTimer = ({ initialTime, autoStartDelay, onExpire }) => {
-  const [time, setTime] = useState(initialTime);
-  const [isRunning, setIsRunning] = useState(false);
+const CustomTimer = (props) => {
+  const [time, setTime] = useState(props.initialTime);
+  const timerRef = useRef(null); 
+  const autoStartDelay = 5;
+  
+
+  useEffect(() => {
+    setTime(props.initialTime);
+  }, [props.initialTime]);
 
   useEffect(() => {
     let timer;
-    if (isRunning) {
-      timer = setInterval(() => {
+    if (props.isRunning && time > 0) {
+      timerRef.current = setInterval(() => { 
         setTime((prevTime) => {
           if (prevTime <= 0) {
             clearInterval(timer);
-            setIsRunning(false);
-            onExpire();
+            props.setIsRunning(false);
             return 0;
           }
           return prevTime - 1;
         });
       }, 1000);
+    } else if (props.isRunning && time === 0) {
+      props.setIsRunning(false);
     }
 
-    return () => clearInterval(timer);
-  }, [isRunning, onExpire]);
+    return () => clearInterval(timerRef.current);
+  }, [props.isRunning, time]);
 
+  // 開始時間の遅延関数
   useEffect(() => {
     let delayTimer;
-    if (autoStartDelay > 0) {
+    if (autoStartDelay > 0 && !props.isRunning) {
       delayTimer = setTimeout(() => {
-        setIsRunning(true);
+        props.setIsRunning(true);
       }, autoStartDelay * 1000);
-    } else {
-      setIsRunning(true);
     }
 
     return () => clearTimeout(delayTimer);
-  }, [autoStartDelay]);
+  }, [autoStartDelay, props.isRunning]);
 
+  // 分数、秒数のFormat関数
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
@@ -43,7 +50,7 @@ const CustomTimer = ({ initialTime, autoStartDelay, onExpire }) => {
   };
 
   return (
-    <div className="timer" style={{ fontSize: '110px', margin: '0 0'  }}>
+    <div className="timer" style={{ fontSize: '110px', margin: '10px 0'  }}>
       <p>{formatTime(time)}</p>
     </div>
   );

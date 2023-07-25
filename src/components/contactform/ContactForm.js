@@ -3,11 +3,10 @@ import { useForm } from 'react-hook-form';
 import './ContactForm.css';
 import Button from '@mui/material/Button';
 import CheckboxesGroup1 from './CheckboxesGroup1';
-import CheckboxesGroup2 from './CheckboxesGroup2';
-import CheckboxesGroup3 from './CheckboxesGroup3';
-import CheckboxesGroup4 from './CheckboxesGroup4';
 
-function ContactForm () {
+
+
+function ContactForm (props) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState(null);
@@ -16,7 +15,18 @@ function ContactForm () {
   const onSubmit = (data) => {
     setFormData(data);
     setSubmitted(true);
-    console.log(data); // submitの内容を出力
+    
+    console.log(data); // フォームのデータを表示する例としてコンソールに出力します
+  };
+
+  const fixFromData = () => {
+    props.setName(formData.name);
+    props.setEmail(formData.email);
+    props.setMassage(formData.message);
+    //API提出フラグ
+    props.setAPIsubmit(props.APIsubmit + 1)
+    props.setShowThanksMessage(true);
+
   };
 
   // ContactForm上部に戻すonClick
@@ -25,14 +35,12 @@ function ContactForm () {
     setFormData(null);
     scrollToTop(formContainerRef);
   };
-  
   // スクロールする関数
   const scrollToTop = (ref) => {
     ref.current.scrollIntoView({ behavior: 'smooth' });
   };
 
 
-  
   return (
     <div className="form-container" ref={formContainerRef}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -61,20 +69,9 @@ function ContactForm () {
           <CheckboxesGroup1 />
         </div>
 
-        {/* アンケート：フィードバックを希望しますか？ */}
-        <div className='form'>
-          <CheckboxesGroup2 />
-        </div>
+        {/* 決済フォーム */}
 
-        {/* アンケート：本サービスをどこで知りましたか？ */}
-        <div className='form'>
-          <CheckboxesGroup3 />
-        </div>
 
-        {/* アンケート：インタビューにご協力いただけますか？ */}
-        <div className='form'>
-          <CheckboxesGroup4 />
-        </div>
 
         {/* フリーコメント */}
         <label htmlFor="message">メッセージ</label>
@@ -91,13 +88,15 @@ function ContactForm () {
           <p>名前: {formData.name}</p>
           <p>メールアドレス: {formData.email}</p>
           <p>メッセージ: {formData.message}</p>
-          <Button variant="contained" type="submit">送信する</Button> {/* App.js の　<ThanksMessage/>に飛ばしたい*/}
+
+          <p>プライバシーポリシーに同意して送信をします</p>
+          <Button variant="contained" type="submit" onClick={() => fixFromData()}>送信する</Button> {/* App.js の　<ThanksMessage/>に飛ばしたい*/}
           <Button variant="contained" type="submit" onClick={handle1ButtonClick} >修正する</Button> {/* App.js の　<ThanksMessage/>に飛ばしたい*/}
         </div>
       )}
-      
     </div>
   );
 };
 
 export default ContactForm;
+

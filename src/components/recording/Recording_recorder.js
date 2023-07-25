@@ -2,10 +2,10 @@ import React, { useState, useRef } from "react";
 import './Recording.css';
 import Button from '@mui/material/Button';
 
-const Recording_recorder = () => {
+const Recording_recorder = (props) => {
     const [recording, setRecording] = useState(false);
-    const [content, setContent] = useState();
     const mediaRecorder = useRef(null);
+    const audioChunks = useRef([]);
 
     const startRecording = async () => {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -21,7 +21,7 @@ const Recording_recorder = () => {
             const audioBlob = new Blob(audioChunks);
             const audioUrl = URL.createObjectURL(audioBlob);
             const audio = new Audio(audioUrl);
-            setContent(audioUrl);  // 保存バイナリデータ
+            props.setContents(audioUrl);  // 保存バイナリデータ
         });
 
         setRecording(true);
@@ -30,6 +30,11 @@ const Recording_recorder = () => {
     const stopRecording = () => {
         if (mediaRecorder.current) {
             mediaRecorder.current.stop();
+
+            // Blobデータを生成し、親コンポーネントに渡す
+            const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            // setRecordedData(audioUrl); // 親コンポーネントに録音データを渡す
             setRecording(false);
         }
     };
@@ -54,7 +59,7 @@ const Recording_recorder = () => {
                 </Button>
             </div>
 
-            {content && <audio src={content} controls />}
+
         </div>
 
     );

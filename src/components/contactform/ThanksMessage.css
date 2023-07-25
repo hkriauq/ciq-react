@@ -1,0 +1,28 @@
+.container-message {
+    align-items: center;
+}
+
+.twitter-icon.tweet-button {
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+.twitter-icon {
+    display: inline-flex!important; /* twitter-iconクラスにもflexを適用 */
+    vertical-align: -12px;
+    color: var(--twitter-color);
+    font-size: 40px !important;
+    margin-top: 30px;
+    margin-right: 10px;
+}
+
+.tweet-button {
+    display: inline-flex; /* tweet-buttonクラスにもflexを適用 */
+    align-items: center; /* 縦方向のセンター合わせ */
+    justify-content: center; /* 横方向のセンター合わせ */
+    background-color: var(--twitter-color) !important;
+    color: #fff;
+    border-color: var(--twitter-color);
+    border-radius: 30px !important;
+    font-size: 10px;
+}

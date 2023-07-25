@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import'./SelectFarms.css';
 
-function SelectFarms() {
+function SelectFarms(props) {
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
+    props.setFarm(event.target.value);
   };
 
+  const farm1 = "戦略系"
+  const farm2 = "総合系"
 
   return (
     <div className='pulldown'>
@@ -21,8 +24,8 @@ function SelectFarms() {
         label="Options"
         onChange={handleChange}
       >
-        <MenuItem value="option1">戦略系（MBB等）</MenuItem>
-        <MenuItem value="option2">総合系（BIG4等）</MenuItem>
+        <MenuItem value={farm1}>{farm1}</MenuItem>
+        <MenuItem value={farm2}>{farm2}</MenuItem>
       </Select>
       </FormControl>
     </div>
